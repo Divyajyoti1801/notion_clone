@@ -9,6 +9,20 @@ export const metadata: Metadata = {
   title: "Notion Clone",
   description:
     "A new tool that blends your everyday work apps into one. It's the all-in-one workspace for you and your team.",
+  icons: {
+    icon: [
+      {
+        media: "(prefer-color-scheme: light)",
+        url: "/logo.svg",
+        href: "/logo.svg",
+      },
+      {
+        media: "(prefer-color-scheme: dark)",
+        url: "/logo-dark.svg",
+        href: "/logo-dark.svg",
+      },
+    ],
+  },
 };
 
 export default function RootLayout({
