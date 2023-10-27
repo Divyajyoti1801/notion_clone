@@ -74,6 +74,29 @@ export const getSidebar = query({
   },
 });
 
+export const create = mutation({
+  args: { title: v.string(), parentDocument: v.optional(v.id("documents")) },
+  handler: async (ctx, args) => {
+    const identity = await ctx.auth.getUserIdentity();
+
+    if (!identity) {
+      throw new Error("Not Authenticated");
+    }
+
+    const userId = identity.subject;
+
+    const document = await ctx.db.insert("documents", {
+      title: args.title,
+      parentDocument: args.parentDocument,
+      userId,
+      isArchived: false,
+      isPublished: false,
+    });
+
+    return document;
+  },
+});
+
 export const getTrash = query({
   handler: async (ctx) => {
     const identity = await ctx.auth.getUserIdentity();
@@ -267,5 +290,58 @@ export const update = mutation({
 
 export const removeIcon = mutation({
   args: { id: v.id("documents") },
-  handler: async (ctx, args) => {},
+  handler: async (ctx, args) => {
+    const identity = await ctx.auth.getUserIdentity();
+
+    if (!identity) {
+      throw new Error("UnAuthenticated");
+    }
+
+    const userId = identity.subject;
+
+    const exisitingDocument = await ctx.db.get(args.id);
+
+    if (!exisitingDocument) {
+      throw new Error("Not Found");
+    }
+
+    if (exisitingDocument.userId !== userId) {
+      throw new Error("UnAuthorized");
+    }
+
+    const document = await ctx.db.patch(args.id, {
+      icon: undefined,
+    });
+
+    return document;
+  },
+});
+
+export const removeCoverImage = mutation({
+  args: { id: v.id("documents") },
+  handler: async (ctx, args) => {
+    const identity = await ctx.auth.getUserIdentity();
+
+    if (!identity) {
+      throw new Error("UnAuthenticated");
+    }
+
+    const userId = identity.subject;
+
+    const exisitingDocument = await ctx.db.get(args.id);
+
+    if (!exisitingDocument) {
+      throw new Error("Not Found");
+    }
+
+    if (exisitingDocument.userId !== userId) {
+      throw new Error("UnAuthorized");
+    }
+
+    const document = await ctx.db.patch(args.id, {
+      coverImage: undefined,
+    });
+
+    return document;
+  },
 });
