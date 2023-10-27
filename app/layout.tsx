@@ -1,5 +1,6 @@
 import { ConvexClientProvider } from "@/components/providers/convex-provide";
 import { ThemeProvider } from "@/components/providers/theme-provider";
+import { EdgeStoreProvider } from "@/lib/edgestore";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
@@ -41,7 +42,7 @@ export default function RootLayout({
             enableSystem
             storageKey="notion-clone-theme-2"
           >
-            {children}
+            <EdgeStoreProvider>{children}</EdgeStoreProvider>
           </ThemeProvider>
         </ConvexClientProvider>
       </body>
