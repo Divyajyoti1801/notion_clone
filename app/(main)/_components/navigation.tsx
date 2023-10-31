@@ -1,17 +1,8 @@
 "use client";
 
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover";
-import { api } from "@/convex/_generated/api";
-import { useSearch } from "@/hooks/use-search";
-import { useSettings } from "@/hooks/use-settings";
-import { cn } from "@/lib/utils";
 import { useMutation } from "convex/react";
 import {
-  ChevronLeft,
+  ChevronsLeft,
   MenuIcon,
   Plus,
   PlusCircle,
@@ -23,6 +14,17 @@ import { useParams, usePathname, useRouter } from "next/navigation";
 import { ElementRef, useEffect, useRef, useState } from "react";
 import { toast } from "sonner";
 import { useMediaQuery } from "usehooks-ts";
+
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
+import { api } from "@/convex/_generated/api";
+import { useSearch } from "@/hooks/use-search";
+import { useSettings } from "@/hooks/use-settings";
+import { cn } from "@/lib/utils";
+
 import { DocumentList } from "./document-list";
 import { Item } from "./item";
 import { Navbar } from "./navbar";
@@ -35,8 +37,9 @@ export const Navigation = () => {
   const search = useSearch();
   const params = useParams();
   const pathname = usePathname();
-  const isMobile = useMediaQuery("(max-width:768px)");
+  const isMobile = useMediaQuery("(max-width: 768px)");
   const create = useMutation(api.documents.create);
+
   const isResizingRef = useRef(false);
   const sidebarRef = useRef<ElementRef<"aside">>(null);
   const navbarRef = useRef<ElementRef<"div">>(null);
@@ -71,8 +74,9 @@ export const Navigation = () => {
   const handleMouseMove = (event: MouseEvent) => {
     if (!isResizingRef.current) return;
     let newWidth = event.clientX;
+
     if (newWidth < 240) newWidth = 240;
-    if (newWidth < 480) newWidth = 480;
+    if (newWidth > 480) newWidth = 480;
 
     if (sidebarRef.current && navbarRef.current) {
       sidebarRef.current.style.width = `${newWidth}px`;
@@ -96,9 +100,11 @@ export const Navigation = () => {
       setIsResetting(true);
 
       sidebarRef.current.style.width = isMobile ? "100%" : "240px";
-
+      navbarRef.current.style.setProperty(
+        "width",
+        isMobile ? "0" : "calc(100% - 240px)"
+      );
       navbarRef.current.style.setProperty("left", isMobile ? "100%" : "240px");
-
       setTimeout(() => setIsResetting(false), 300);
     }
   };
@@ -116,9 +122,15 @@ export const Navigation = () => {
   };
 
   const handleCreate = () => {
-    const promise = create({
-      title: "Untitled",
-    }).then((documentId) => router.push(`/documents/${documentId}`));
+    const promise = create({ title: "Untitled" }).then((documentId) =>
+      router.push(`/documents/${documentId}`)
+    );
+
+    toast.promise(promise, {
+      loading: "Creating a new note...",
+      success: "New note created!",
+      error: "Failed to create a new note.",
+    });
   };
 
   return (
@@ -139,13 +151,13 @@ export const Navigation = () => {
             isMobile && "opacity-100"
           )}
         >
-          <ChevronLeft className="h-6 w-6" />
+          <ChevronsLeft className="h-6 w-6" />
         </div>
         <div>
           <UserItem />
-          <Item label="search" isSearch onClick={search.onOpen} icon={Search} />
-          <Item label="settings" icon={Settings} onClick={settings.onOpen} />
-          <Item label="New page " icon={PlusCircle} onClick={handleCreate} />
+          <Item label="Search" icon={Search} isSearch onClick={search.onOpen} />
+          <Item label="Settings" icon={Settings} onClick={settings.onOpen} />
+          <Item onClick={handleCreate} label="New page" icon={PlusCircle} />
         </div>
         <div className="mt-4">
           <DocumentList />

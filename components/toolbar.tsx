@@ -1,15 +1,16 @@
 "use client";
 
-import { IconPicker } from "@/components/icon-picker";
-import { Button } from "@/components/ui/button";
-import { api } from "@/convex/_generated/api";
-import { Doc } from "@/convex/_generated/dataModel";
-import { removeIcon } from "@/convex/documents";
-import { useCoverImage } from "@/hooks/use-cover-image";
 import { useMutation } from "convex/react";
 import { ImageIcon, Smile, X } from "lucide-react";
 import { ElementRef, useRef, useState } from "react";
 import TextareaAutosize from "react-textarea-autosize";
+
+import { Button } from "@/components/ui/button";
+import { api } from "@/convex/_generated/api";
+import { Doc } from "@/convex/_generated/dataModel";
+import { useCoverImage } from "@/hooks/use-cover-image";
+
+import { IconPicker } from "./icon-picker";
 
 interface ToolbarProps {
   initialData: Doc<"documents">;
@@ -20,12 +21,15 @@ export const Toolbar = ({ initialData, preview }: ToolbarProps) => {
   const inputRef = useRef<ElementRef<"textarea">>(null);
   const [isEditing, setIsEditing] = useState(false);
   const [value, setValue] = useState(initialData.title);
+
   const update = useMutation(api.documents.update);
   const removeIcon = useMutation(api.documents.removeIcon);
+
   const coverImage = useCoverImage();
 
   const enableInput = () => {
     if (preview) return;
+
     setIsEditing(true);
     setTimeout(() => {
       setValue(initialData.title);
@@ -33,9 +37,7 @@ export const Toolbar = ({ initialData, preview }: ToolbarProps) => {
     }, 0);
   };
 
-  const disableInput = () => {
-    setIsEditing(false);
-  };
+  const disableInput = () => setIsEditing(false);
 
   const onInput = (value: string) => {
     setValue(value);
@@ -60,7 +62,9 @@ export const Toolbar = ({ initialData, preview }: ToolbarProps) => {
   };
 
   const onRemoveIcon = () => {
-    removeIcon({ id: initialData._id });
+    removeIcon({
+      id: initialData._id,
+    });
   };
 
   return (
@@ -94,7 +98,7 @@ export const Toolbar = ({ initialData, preview }: ToolbarProps) => {
               size="sm"
             >
               <Smile className="h-4 w-4 mr-2" />
-              Add Icon
+              Add icon
             </Button>
           </IconPicker>
         )}
@@ -106,7 +110,7 @@ export const Toolbar = ({ initialData, preview }: ToolbarProps) => {
             size="sm"
           >
             <ImageIcon className="h-4 w-4 mr-2" />
-            Add Cover
+            Add cover
           </Button>
         )}
       </div>

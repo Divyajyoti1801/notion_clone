@@ -1,12 +1,14 @@
 "use client";
 
+import { useQuery } from "convex/react";
+import { FileIcon } from "lucide-react";
+import { useParams, useRouter } from "next/navigation";
+import { useState } from "react";
+
 import { api } from "@/convex/_generated/api";
 import { Doc, Id } from "@/convex/_generated/dataModel";
 import { cn } from "@/lib/utils";
-import { useQuery } from "convex/react";
-import { FileIcon } from "lucide-react";
-import { redirect, useParams, useRouter } from "next/navigation";
-import { useState } from "react";
+
 import { Item } from "./item";
 
 interface DocumentListProps {
@@ -55,7 +57,9 @@ export const DocumentList = ({
   return (
     <>
       <p
-        style={{ paddingLeft: level ? `${level * 12 + 25}px` : undefined }}
+        style={{
+          paddingLeft: level ? `${level * 12 + 25}px` : undefined,
+        }}
         className={cn(
           "hidden text-sm font-medium text-muted-foreground/80",
           expanded && "last:block",
@@ -68,7 +72,7 @@ export const DocumentList = ({
         <div key={document._id}>
           <Item
             id={document._id}
-            onClick={() => redirect(document._id)}
+            onClick={() => onRedirect(document._id)}
             label={document.title}
             icon={FileIcon}
             documentIcon={document.icon}

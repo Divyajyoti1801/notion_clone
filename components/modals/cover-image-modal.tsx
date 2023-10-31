@@ -1,14 +1,15 @@
 "use client";
 
+import { useMutation } from "convex/react";
+import { useParams } from "next/navigation";
+import { useState } from "react";
+
 import { SingleImageDropzone } from "@/components/single-image-dropzone";
 import { Dialog, DialogContent, DialogHeader } from "@/components/ui/dialog";
 import { api } from "@/convex/_generated/api";
 import { Id } from "@/convex/_generated/dataModel";
 import { useCoverImage } from "@/hooks/use-cover-image";
 import { useEdgeStore } from "@/lib/edgestore";
-import { useMutation } from "convex/react";
-import { useParams } from "next/navigation";
-import { useState } from "react";
 
 export const CoverImageModal = () => {
   const params = useParams();
@@ -32,11 +33,13 @@ export const CoverImageModal = () => {
 
       const res = await edgestore.publicFiles.upload({
         file,
-        options: { replaceTargetUrl: coverImage.url },
+        options: {
+          replaceTargetUrl: coverImage.url,
+        },
       });
 
       await update({
-        id: params.document as Id<"documents">,
+        id: params.documentId as Id<"documents">,
         coverImage: res.url,
       });
 
