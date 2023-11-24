@@ -18,7 +18,7 @@ import {
   Trash,
 } from "lucide-react";
 import { usePathname } from "next/navigation";
-import { ElementRef, useEffect, useMemo, useRef, useState } from "react";
+import { ElementRef, useEffect, useRef, useState } from "react";
 import { toast } from "sonner";
 import { useMediaQuery } from "usehooks-ts";
 import { DocumentList } from "./document-list";
