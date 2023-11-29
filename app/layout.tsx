@@ -1,3 +1,4 @@
+import { ModalProvider } from "@/components/modals/modal-provider";
 import { ConvexClientProvider } from "@/components/providers/convex-provider";
 import { ThemeProvider } from "@/components/providers/theme-provider";
 import type { Metadata } from "next";
@@ -44,6 +45,7 @@ export default function RootLayout({
             storageKey="jotion-theme-2"
           >
             <Toaster position="bottom-center" />
+            <ModalProvider />
             {children}
           </ThemeProvider>
         </ConvexClientProvider>
