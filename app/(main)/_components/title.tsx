@@ -2,10 +2,11 @@
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { Skeleton } from "@/components/ui/skeleton";
 import { api } from "@/convex/_generated/api";
 import { Doc } from "@/convex/_generated/dataModel";
 import { useMutation } from "convex/react";
-import React, { useRef, useState } from "react";
+import { useRef, useState } from "react";
 
 interface TitleProps {
   initialData: Doc<"documents">;
@@ -50,16 +51,17 @@ export const Title = ({ initialData }: TitleProps) => {
       {!!initialData.icon && <p>{initialData.icon}</p>}
       {isEditing ? (
         <Input
-          className="h-7 px-2 focus-visible:ring-transparent"
           ref={inputRef}
           onClick={enableInput}
-          onBlur={onChange}
+          onBlur={disableInput}
+          onChange={onChange}
           onKeyDown={onKeyDown}
           value={title}
+          className="h-7 px-2 focus-visible:ring-transparent"
         />
       ) : (
         <Button
-          onClick={() => {}}
+          onClick={enableInput}
           variant="ghost"
           size="sm"
           className="font-normal h-auto p-1"
@@ -69,4 +71,8 @@ export const Title = ({ initialData }: TitleProps) => {
       )}
     </div>
   );
+};
+
+Title.Skeleton = function TitleSkeleton() {
+  return <Skeleton className="h-9 w-20 rounded-md" />;
 };
