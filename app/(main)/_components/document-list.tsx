@@ -4,6 +4,7 @@ import { api } from "@/convex/_generated/api";
 import { Doc, Id } from "@/convex/_generated/dataModel";
 import { cn } from "@/lib/utils";
 import { useQuery } from "convex/react";
+import { FileIcon } from "lucide-react";
 import { useParams, useRouter } from "next/navigation";
 import { useState } from "react";
 import { Item } from "./item";
@@ -16,7 +17,7 @@ interface DocumentListProps {
 
 export const DocumentList = ({
   parentDocumentId,
-  level,
+  level = 0,
   data,
 }: DocumentListProps) => {
   const params = useParams();
@@ -64,6 +65,24 @@ export const DocumentList = ({
       >
         No pages inside
       </p>
+      {documents.map((document) => (
+        <div key={document._id}>
+          <Item
+            id={document._id}
+            onClick={() => {}}
+            label={document.title}
+            icon={FileIcon}
+            documentIcon={document.icon}
+            active={params.documentId === document._id}
+            level={level}
+            onExpand={() => onExpand(document._id)}
+            expanded={expanded[document._id]}
+          />
+          {expanded[document._id] && (
+            <DocumentList parentDocumentId={document._id} level={level + 1} />
+          )}
+        </div>
+      ))}
     </>
   );
 };
