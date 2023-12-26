@@ -1,36 +1,70 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Fullstack Notion Clone
+
+[![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE.md)
+
+Welcome to the Fullstack Notion Clone repository, a powerful note-taking and collaboration platform crafted with Next.js, React, Convex, and Tailwind.
+
+![Project Image](screenshot.png)
+
+## Table of Contents
+
+- [Fullstack Notion Clone](#fullstack-notion-clone)
+  - [Table of Contents](#table-of-contents)
+  - [Key Features](#key-features)
+  - [Tech Stack](#tech-stack)
+  - [Getting Started](#getting-started)
+  - [Usage](#usage)
+  - [Contributing](#contributing)
+  - [License](#license)
+
+## Key Features
+
+- **Real-time Database**: Collaborate seamlessly with a real-time database.
+- **Notion-Style Editor**: Enjoy a familiar Notion-style editor for content creation.
+- **Light and Dark Mode**: Switch between light and dark modes for comfortable viewing.
+- **Infinite Children Documents**: Organize content effectively with nested documents.
+- **Trash Can & Soft Delete**: Safely store and recover deleted content.
+- **Authentication**: Ensure data security with user authentication.
+- **File Management**: Upload, delete, and replace files within documents.
+- **Dynamic Icons**: Icons for each document update in real-time.
+- **Expandable Sidebar**: Navigate through an expandable sidebar for ease of use.
+- **Full Mobile Responsiveness**: Access the platform seamlessly on mobile devices.
+- **Publish to Web**: Share your notes by publishing them on the web.
+- **Collapsible Sidebar**: Customize workspace with a collapsible sidebar.
+- **Landing Page**: Start your journey with a dedicated landing page.
+- **Cover Images**: Personalize documents with cover images.
+- **Recover Deleted Files**: Effortlessly recover accidentally deleted files.
+
+## Tech Stack
+
+- Next.js 13
+- React
+- Convex
+- Tailwind CSS
 
 ## Getting Started
 
-First, run the development server:
+To begin with this project:
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+1. Clone the repository: `git clone https://github.com/yourusername/your-repo.git`
+2. Navigate to the project directory: `cd your-repo`
+3. Install dependencies: `npm install`
+4. Configure environment variables as required.
+5. Start the development server: `npm run dev`
+6. Access the application in your browser at `http://localhost:3000`.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Usage
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Include detailed instructions on using your Fullstack Notion Clone, covering key features and user guides.
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+## Contributing
 
-## Learn More
+Contributions are welcome! Fork the repository, make changes, and create a pull request.
 
-To learn more about Next.js, take a look at the following resources:
+## License
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+---
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+Crafted with ❤️ by [Divyajyoti](https://github.com/Divyajyoti1801)
